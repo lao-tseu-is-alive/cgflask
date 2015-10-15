@@ -3,7 +3,7 @@ from models import User, db, Place
 from forms import SignupForm, LoginForm, AddressForm
 
 app = Flask(__name__)  # postgresql[+psycopg2]://user:password@host:port/db_name
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://cgflask:cgflask@localhost:5432/cgflask'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://cgflask:cgflask@localhost:5433/cgflask'
 app.secret_key = "development-key_cgil_testing_flask"
 db.init_app(app)
 with app.app_context():
@@ -42,6 +42,8 @@ def signup():
             db.session.commit()
 
             session['email'] = newuser.email
+            session['firstname'] = newuser.firstname
+            session['lastname'] = newuser.lastname
             return redirect(url_for('home'))
 
     elif request.method == "GET":
